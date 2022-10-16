@@ -1,0 +1,34 @@
+.referral-hr {
+    background-color: #4552c1;
+    height: 1px;
+}
+
+.referral-div {
+    font-family: open-sans, sans-serif;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    background: #f8f9ff 0% 0% no-repeat padding-box;
+    box-shadow: 0px -3px 6px #0000000b;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.referral-h3 {
+    font-size: 24px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.96px;
+    color: #5861ae;
+    opacity: 1;
+    margin-top: 30px;
+}
+.referral-p {
+    padding-bottom: 30px;
+    font-family: open-sans, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    font-style: italic;
+}
