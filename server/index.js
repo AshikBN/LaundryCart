@@ -75,9 +75,9 @@ app.post(
   "/api/login",
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password);
+    //console.log(email, password);
     const user = await User.findOne({ email });
-    console.log(user);
+    //console.log(user);
 
     if (user && (await user.matchPassword(password))) {
       res.json({
@@ -97,7 +97,6 @@ app.post(
 
 app.get("/api/orders", async (req, res) => {
   const { id } = req.query;
-  console.log(id);
   const orders = await Order.find({ userId: `${id}` });
   res.status(200).json(orders);
 });
@@ -149,6 +148,33 @@ app.post("/api/products/createOrder", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
+// app.delete("/api/deleteOrder", async (req, res) => {
+//   const { id } = req.body;
+//   console.log(id);
+//   const order = await Order.deleteOne({ OrderId: `${id}` });
+//   if (order) {
+//     res.status(200).json(order);
+//   } else {
+//     res.status(400).json({
+//       message: "delete unsuccessfull",
+//     });
+//   }
+// });
+app.delete("/deleteOrder/:orderId", (req, res) => {
+  // const deletedorder=orders.findById(req.params.orderId)
+  // console.log(deletedorder,"hhh")
+  Order.findByIdAndDelete(req.params.orderId, (err, docs) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json({
+        success: true,
+        message: "order deleted",
+      });
+    }
+  });
+});
+
+app.listen(process.env.PORT || 5000, () => {
   console.log(`backend server started at port 5000}`);
 });

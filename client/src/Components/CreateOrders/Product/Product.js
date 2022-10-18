@@ -1,5 +1,5 @@
 import "../Product/Product.css";
-import shirt from "../../../assets/shirt.jpg";
+import shirt from "../../../assets/tshirt.jpg";
 import { useEffect, useState } from "react";
 
 import washingMachine from "../../../assets/washing-machine.svg";
@@ -9,7 +9,6 @@ import bleachImg from "../../../assets/bleach.svg";
 import washingMachineSelect from "../../../assets/washing-machine-select.svg";
 import ironImgSelect from "../../../assets/iron-select.svg";
 import bleachImgSelect from "../../../assets/bleach-select.svg";
-import { useAccordionItemState } from "@chakra-ui/react";
 
 const Product = ({ item, totalOrder, setTotalOrder }) => {
   const [wash, setWash] = useState(false);
@@ -101,7 +100,7 @@ const Product = ({ item, totalOrder, setTotalOrder }) => {
     <>
       <div className="product_container" style={{ display: "flex" }}>
         <div className="product_detail">
-          <img className="product_image" src={shirt} alt="shirt" />
+          <img className="product_image" src={item.image} alt="shirt" />
           <div className="product_description">
             <h3>{item.name}</h3>
             <p>{item.description}</p>
@@ -109,6 +108,7 @@ const Product = ({ item, totalOrder, setTotalOrder }) => {
         </div>
         <div className="product_quantity">
           <input
+            style={{ textAlign: "center" }}
             value={quantity}
             onChange={(e) => {
               setQuantity(() => {

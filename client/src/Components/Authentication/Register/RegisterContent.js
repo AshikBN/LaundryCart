@@ -4,10 +4,11 @@ import { Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Registercontent = () => {
   const [name, setName] = useState("");
-  const [show, setShow] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
@@ -18,6 +19,7 @@ const Registercontent = () => {
   const [pincode, setPincode] = useState("");
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
   // const history = useHistory();
 
   const submitHandler = async () => {
@@ -86,6 +88,7 @@ const Registercontent = () => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       // history.push("/chats");
+      navigate("/");
     } catch (error) {
       toast({
         title: "Error Occured",
@@ -111,7 +114,12 @@ const Registercontent = () => {
           <p className="signup-maincontainer-alreadyhaveaccount">
             Already Have Account
           </p>
-          <button className="signup-maincontainer-registerbutton">
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            className="signup-maincontainer-registerbutton"
+          >
             Sign In
           </button>
         </div>
@@ -200,7 +208,7 @@ const Registercontent = () => {
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   style={{ fontSize: "18px", color: "#77838F" }}
                 />
@@ -209,11 +217,11 @@ const Registercontent = () => {
               <br></br>
               <label class="custom-field two">
                 <input
+                  type="password"
                   value={confirmpassword}
                   onChange={(e) => {
                     setConfirmpassword(e.target.value);
                   }}
-                  type="text"
                   placeholder="Confirm password"
                   style={{ fontSize: "18px", color: "#77838F" }}
                 />

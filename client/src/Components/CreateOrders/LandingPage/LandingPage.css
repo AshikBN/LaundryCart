@@ -22,13 +22,13 @@ font-size: 20px;
 
 .products_container{
     width: 1295px;
-    height: 612px;
+    height: 525px;
     border: 1px solid #e0e0e0;
 }
 
 .product_header{
     display: flex;
-    justify-content:space-between;
+     justify-content:space-between; 
     align-items: center;
     top: 176px;
     left: 108px;

@@ -5,6 +5,7 @@ import axios from "axios";
 import Product from "../Product/Product";
 import success from "../../../assets/success.svg";
 import Header from "../outerLayer/Header";
+
 import {
   Drawer,
   DrawerBody,
@@ -22,6 +23,8 @@ import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const [location, setLocation] = useState();
+
+  const images={0:"../../../assets/shirt.jpg"}
 
   const storeLocations = {
     JayaNagar: {
@@ -127,13 +130,14 @@ const LandingPage = () => {
             <div>Wash Type</div>
             <div>Price</div>
           </header>
-          {products.map((item) => {
+          {products.map((item,index) => {
             return (
               <Product
                 totalOrder={totalOrder}
                 setTotalOrder={setTotalOrder}
                 key={item._id}
                 item={item}
+                imgs={images[0]}
               />
             );
           })}

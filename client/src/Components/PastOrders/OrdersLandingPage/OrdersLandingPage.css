@@ -77,5 +77,14 @@
         color: #5861AE;
         border-radius: 4px;
         margin-left: 749px;
+       
+}
+.create-btn-alone{
+    width: 107px;
+        height: 32px;
+        border: 1px solid #5861AE;
+        color: #5861AE;
+        border-radius: 4px;
         font-weight: 500;
+
 }

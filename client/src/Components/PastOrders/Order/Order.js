@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Order/Order.css";
 import eye from "../../../assets/eye.svg";
+import alert from "../../../assets/alert.JPG";
+
 import {
   Drawer,
   DrawerBody,
@@ -13,13 +15,52 @@ import {
   ModalOverlay,
   ModalContent,
 } from "@chakra-ui/react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Order = ({ item }) => {
+const Order = ({ item, getOrders }) => {
+  const [orderId, setOrderId] = useState("");
+  const [counter, setCounter] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isopenmodal,
+    onOpen: onopenmodal,
+    onClose: onclosemodal,
+  } = useDisclosure();
+  const navigate = useNavigate();
+
+  // const deleteOrder = async () => {
+  //   console.log(item.OrderId);
+  //   const { data } = await axios.delete("/api/deleteOrder", {
+  //     id: orderid,
+  //   });
+  //   navigate("/orders");
+  // };
+  const deleteOrder = () => {
+    setCounter(counter + 1);
+    fetch("/deleteOrder/" + orderId, {
+      method: "DELETE",
+
+      body: {
+        orderId: orderId,
+      },
+    });
+    getOrders();
+    navigate("/orders");
+  };
+
   return (
     <>
       <div className="order_container">
-        <div style={{ marginRight: "130px" }}>{item.OrderId}</div>
+        <div
+          style={{
+            marginRight: "80px",
+            textDecoration: "underLine",
+            cursor: "pointer",
+          }}
+        >
+          {item.OrderId}
+        </div>
         <div style={{ marginRight: "140px" }}>
           {new Date(item.createdAt).toLocaleDateString()}
         </div>
@@ -29,7 +70,14 @@ const Order = ({ item }) => {
         <div style={{ marginRight: "100px" }}>{item.totalPrice}</div>
         <div style={{ marginRight: "50px" }}>ready to Pickeup</div>
         <div className="eyeimg">
-          <img onClick={onOpen} src={eye} alt="eye" />
+          <img
+            onClick={() => {
+              setOrderId(item._id);
+              onOpen();
+            }}
+            src={eye}
+            alt="eye"
+          />
         </div>
       </div>
 
@@ -159,10 +207,77 @@ const Order = ({ item }) => {
                 <h1>Home</h1>
                 <p>#223, 10th road, Jp Nagar, Bangalore</p>
               </div>
+              <div style={{ marginTop: "20px" }}>
+                <button
+                  onClick={onopenmodal}
+                  style={{
+                    marginLeft: "730px",
+                    height: "45px",
+                    width: "145px",
+                    backgroundColor: "#F41313",
+                    color: "white",
+                    borderRadius: "4px",
+                    fontSize: "16px",
+                    fontWeight: "500",
+                  }}
+                >
+                  Cancel Order
+                </button>
+              </div>
             </div>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+      <Modal onClose={onclosemodal} size={"sm"} isOpen={isopenmodal}>
+        <ModalOverlay />
+        <ModalContent>
+          <div className="alert">
+            <header>
+              <p style={{ marginLeft: "10px" }}> Alert</p>
+              <p
+                onClick={onclosemodal}
+                style={{ cursor: "pointer", marginRight: "10px" }}
+              >
+                X
+              </p>
+            </header>
+            <div
+              style={{
+                display: "flex",
+                width: "385px",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                height: "150px",
+              }}
+            >
+              <img alt="" style={{ width: "40px" }} src={alert} />
+              <div style={{ width: "230px" }}>
+                <p style={{ color: "#1B2734", fontWeight: 500 }}>
+                  Are you sure want to cancel the oreder No: {item.OrderId}
+                </p>
+                <button
+                  style={{
+                    height: "32px",
+                    width: "102px",
+                    backgroundColor: "#5861AE",
+                    color: "white",
+                    borderRadius: "4px",
+                    margin: "10px 0px 0px 30px",
+                  }}
+                  onClick={() => {
+                    deleteOrder();
+                    onclosemodal();
+                    onClose();
+                  }}
+                >
+                  Proceed
+                </button>
+              </div>
+            </div>
+          </div>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

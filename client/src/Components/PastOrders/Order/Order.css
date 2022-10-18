@@ -121,3 +121,18 @@ select {
     font-weight: 400;
 }
  
+.alert{
+    width: 200px;
+    height: 200px;
+}
+.alert header{
+    background-color: #5861AE;
+        height: 39px;
+        width: 384px;
+        margin: 0px;
+        color: white;
+        font-size: 18px;
+        display: flex;
+            justify-content: space-between;
+            align-items: center;
+}

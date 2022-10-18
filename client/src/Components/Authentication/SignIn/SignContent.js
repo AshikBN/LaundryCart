@@ -1,24 +1,18 @@
 import React, { useState } from "react";
 import "./SignContent.css";
 import lock from "../../../assets/lock.svg";
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  VStack,
-  useToast,
-} from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { UserState } from "../../context/UserProvider";
 const Signincontent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
+  const { user, setUser } = UserState();
 
   const submitHandler = async () => {
     setLoading(true);
@@ -44,6 +38,8 @@ const Signincontent = () => {
         position: "bottom",
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
+      setUser(data);
+
       setLoading(false);
       navigate("/orders");
     } catch (error) {
@@ -105,7 +101,7 @@ const Signincontent = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                type="text"
+                type={show ? "text" : "password"}
                 placeholder="Password"
               />
               {/* <span class="placeholder">Password</span> */}
@@ -114,6 +110,11 @@ const Signincontent = () => {
                 src={lock}
                 alt="show-pass"
                 style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setShow((show) => {
+                    return !show;
+                  });
+                }}
               />
             </label>
 
