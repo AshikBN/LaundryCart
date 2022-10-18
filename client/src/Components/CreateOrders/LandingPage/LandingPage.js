@@ -99,7 +99,7 @@ const LandingPage = () => {
       Address: storeLocations[location].address,
       ...totalOrder,
     };
-    const order1 = await axios.post("/api/products/createOrder", order);
+    const order1 = await axios.post("https://mern-laundry-service.herokuapp.com/api/products/createOrder", order);
     if (order1) {
       onopenmodal();
     }

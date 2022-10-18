@@ -22,9 +22,12 @@ const PastOrders = () => {
 
   const getOrders = async () => {
     console.log("hello");
-    const { data } = await axios.get("/api/orders", {
-      params: { id: user.userid },
-    });
+    const { data } = await axios.get(
+      "https://mern-laundry-service.herokuapp.com/api/orders",
+      {
+        params: { id: user.userid },
+      }
+    );
 
     setOrders(data);
   };

@@ -29,7 +29,10 @@ const Signincontent = () => {
     }
 
     try {
-      const { data } = await axios.post("/api/login", { email, password });
+      const { data } = await axios.post(
+        "https://mern-laundry-service.herokuapp.com/api/login",
+        { email, password }
+      );
       toast({
         title: "Login Successfull",
         status: "success",
