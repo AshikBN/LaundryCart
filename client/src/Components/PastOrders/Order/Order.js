@@ -38,7 +38,7 @@ const Order = ({ item, getOrders }) => {
   // };
   const deleteOrder = () => {
     setCounter(counter + 1);
-    fetch("https://mern-laundry-service.herokuapp.com/deleteOrder/" + orderId, {
+    fetch("/deleteOrder/" + orderId, {
       method: "DELETE",
 
       body: {

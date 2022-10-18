@@ -66,19 +66,16 @@ const Registercontent = () => {
       //   },
       // };
 
-      const { data } = await axios.post(
-        "https://mern-laundry-service.herokuapp.com/api/register",
-        {
-          name,
-          email,
-          password,
-          state,
-          address,
-          pincode,
-          district,
-          phoneno,
-        }
-      );
+      const { data } = await axios.post("/api/register", {
+        name,
+        email,
+        password,
+        state,
+        address,
+        pincode,
+        district,
+        phoneno,
+      });
 
       toast({
         title: "Registration Successfull",
